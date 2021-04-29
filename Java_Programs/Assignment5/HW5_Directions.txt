@@ -1,0 +1,289 @@
+COP4331 Homework 5
+
+Lambda Expressions, Chapter 10, and Chapter 7
+
+*** no homeworks will be accepted after the due date ***
+
+Preparation/Delivery Instructions:
+
+
+   1. Write all your answers, in the order given in the homework file, in ONE PDF file.
+      (Convert from Word doc.)
+      Upload also the Java source files in a **single zip** file.
+      Organize the files in the
+      zip file in directories corresponding to the problems.
+      
+      Follow this format for the PDF file:
+      Write your name followed by the section number (e.g. COP4331 001 - or COP5339).
+      For each problem write as a heading the problem number (e.g. "Problem 4.1"). 
+      The problem number must be clearly readable before the problem solution. 
+      Make sure Java code and UML diagrams are readable. Make it easy for the grader.
+      Nice color syntax highlighting is not required, but appreciated.
+      Check out online services for highlighting in Word with conversion to HTML:
+      https://tohtml.com/java/ and http://hilite.me/ .
+      
+      Proper indentation and code formatting is required.
+      
+   2. Upload on Canvas the pdf file and the zip file with all Java source files for the solutions.
+      Put UML diagrams in the PDF file.
+   
+   3. For full credit, your designs and code must follow the course guidelines and must compile without 
+	warnings and work correctly, as required in the problem description. 
+
+	Remider: it is academic misconduct to submit work that is not yours.
+	Do not paste code taken from the web. 
+	You can (and should) use any helpful code from the textbook for your answers.
+
+----------------
+Other general advice that will help you do well in this class. And build better code, too.
+
+    * !! Ask your instructor if you have any questions about the homework 
+	(and anything else related to the class) !!
+
+    * Consult the solutions for selected textbook problems, available at 
+		http://www.horstmann.com/oodp2/solutions/solutions.html
+
+    * Do exactly what the problem asks you to do. There is no extra credit for unnecessary work.
+      Points are deducted if design or implemenation requirements are not met.
+
+    * Do not rename classes and methods if they are given.
+
+    * Do not change method signature, where specified. 
+
+    * Design/code your classes for general use. Assume there are other programmers who will use your code.
+
+    * Avoid unnecessary side effects. Do not use static fields/methods, unless warranted (e.g. main()).
+
+    * check for errors and exceptions.
+
+    * Enclose methods that may throw exceptions within a try-catch block.
+    
+    * Check parameters and variables before you do something in a method. E.g. average = sum/list.size() 
+		may throw an ArithmeticException if the list is empty. 
+
+
+    * Use class (static) variables only when necessary (e.g. to share a variable between instances, 
+		or for constants)
+
+    * Do not define instance variables when local variables could do the job.
+
+    * Use nouns for class names and verbs for methods.
+
+    * Follow coding conventions; class names start with capitals, methods and variables start with lowercase, etc. 
+
+
+Scoring: non-optional problems total = 100 points
+==============================================================================================================
+
+Homework problems - Lambda Expressions:
+
+
+L.1
+A functor is an object that encapsulates a function. Its apply() method takes one parameter,
+applies an algorithm and returns a value. It is defined as a 'functional' interface:
+
+   interface Functor<R,T> { 
+      // apply(p) runs some computation on param of type T and returns a value of type R
+      public R apply(T param);
+   }
+
+a) Write a class implementing the Functor<Integer,String> interface, called LengthFun.
+Its apply() function returns the length (Integer) of a String parameter.
+
+Write a LengthFun.main() function that:
+    o  illustrates how the class is used to print the length of a string.
+    o  instantiates a lambda expression of type Functor<Integer, String> that does the same
+    thing as LengthFun.apply(), and uses it to print the length of a string.
+
+
+b) Define a subclass of LinkedList<T>, called MyList<T>, that has an additional 
+generic function that "maps" the elements from the list to a new MyList<E> object
+through a functor object.
+
+The signature of the map() method is:
+
+     public <R> MyList<R> map(Functor<R,T> fo) {
+        // write here the code for the map() function.
+     }
+
+For an object mylist the mylist.map(fo) creates a new MyList<R> object,
+iterates over the elements of mylist and appends values fo.apply(current list element)
+to the new list. At the end map() returns the new list.
+
+For instance, consider a TimesTwoFun implementing Functor<Integer,Integer>  whose 
+     Integer apply(Integer param) 
+function returns 2*param.intValue(). Define a variable tt = new TimesTwoFun();
+Now, suppose the elements of a MyList<Integer> object lst are (-2,1,0,4). Then ,
+the new MyList<Integer> object returned by the lst.map(tt) will have elements (-4,2,0,8).
+That is, the lst.map(fo) function creates a new MyList object with elements equal to fo.apply(x),
+for each element x from the lst list. 
+
+Write the TimesTwoFun class.
+
+Write the MyList<T> class that extends LinkedList<T>, with the only custom method being map()
+(all others are inherited from LinkedList<T>).
+
+Write a main() function in MyList.java that:
+    o   implements the example defined above with the TimesTwoFun class.
+    o   repeats the same thing using a lambda expression insted of the TimesTwoFun object.
+    
+
+
+c) A Functor2<R,T1,T2> interface describes a function
+with 2 variables of types T1, and T2, respectively, and returning a value of type R.
+The apply function takes one parameter of type T1, one parameter of type T2, and returns
+type R. 
+
+
+      interface Functor2<R,T1,T2> {
+          R apply(T1 param1, T2 param2);
+      }
+
+Add a reduce() function to the MyList<T> class that takes as parameters a Functor2 object,
+and an initial value of type T.
+
+     public T reduce(Functor2<T,T,T> fo2, T initialValue) {
+        // write code here
+     }
+
+
+reduce(fo2, initVal) returns the sucessive "cummulative" application of 
+the Functor2 apply() function to all elements of the list, beginning with the initial value and
+the first element of the list.
+For instance, assume the list elements are (a,b,c,d) and that a Functor2 object fo2 is defined.
+Then the reduce(fo2, v) call returns 
+    fo2.apply(fo2.apply(fo2.apply(fo2.apply(v, a), b), c), d)
+    
+As a second example, a class called Summer implements the  Functor2<Integer, Integer, Integer> interface.
+Summer.apply(x,y) returns x + y. Declare the summer ref. variable to be a reference to a Summer object.
+Assume the elements in the list are (3, -1, 1, 4). Then lst.reduce(summer, 0) should return
+((((3+0)+(-1))+1)+4) == 7, i.e. the sum of all elements in the list. 
+
+To do:
+   o   Write the generic reduce() function in the MyList<T> class defined first at point b). 
+       Make sure the function's parameter/return types are defined correctly.
+   o   Write the Summer class that implements the Functor2<Integer,Integer,Integer>
+       interface, as described above.
+   o   Write a test driver class called SummerTest with a main() function that:
+       i) implements the example above with the Summer object and the list with numbers.
+       ii) implements the example above with a lambda expression instead of a Summer object.
+   Make sure the code works.
+
+
+d) The map and reduce functions are part of the functional programming paradigm
+and are widely used in non-functional languages as well.
+To  understand the power of the map/reduce combination, use the code written in parts a)-c))
+to implement the following in the main() function of class MRExample:
+
+   - create a MyList<String> object ls with several nonempty String objects added to it
+   - use function ls.map() to return the list of Integer objects representing the length
+   of each string
+     in ls. Use the LengthFun functor class. Call the returned list a variable li.
+   - Use li.reduce() with a Summer object to compute the total number of characters in
+   all strings in the ls list.
+
+
+e) Write in the main() function of a new class MRExampleWithLambdas the same logic as in part d)
+***using lambda expressions*** and chain the map() and reduce() calls in one expression:
+ls.map(...).reduce(....).
+
+
+
+---------------
+
+Homework problems Chapter 10
+
+
+10.1
+Consider the following generic queue interface:
+
+interface MyQueue <E> {
+   // return the top of the queue element or throw NoSuchElementException if empty	  
+   E head();
+
+   // remove and return the top of the queue element or throw NoSuchElementException if empty
+   E dequeue();
+
+   // add an element to the queue
+   void enqueue(E e);
+
+   // returns the size of the queue
+   int size();
+
+   // returns true if the queue is empty
+   boolean isEmpty();
+
+   // add elements to this queue from a collection c of E references:
+   void addAll(Collection <? extends E> c);
+}
+
+a) Use the Adapter pattern to design a generic queue class called  LQueue<E> that implements
+interface MyQueue<E> and that uses a LinkedList<E> object to stores the queue elements.
+Write the UML class diagram for the pattern. 
+Identify the pattern roles (e.g. "adapter", "adaptee") with UML notes on the class diagram.
+
+b) Implement class LQueue<E> in Java. 
+Write correct contracts for each method. (Notice that NoSuchElementException is not a checked
+exception, but you could put it in the function signature.)
+
+c) Write a class QueueTest with a main(...) method that tests all 6 methods from class LQueue<E>.
+There is no need of junit unit tests. Use hardcoded objects.
+
+
+10.2
+Use the Singleton pattern for a new Java class Stdout you need to write 
+that can have just one instance. A programmer can use the instance 
+to print text lines (String objects) to the terminal with the method printline():
+
+    public class Stdout {
+       public void printline(String s) {
+          ...   // print s to System.out
+       }
+       ...      // fill in the dots
+    }
+
+Make sure the pattern is implemented correctly (e.g. just one instance can be created). 
+Notice that the printline() function is NOT static.
+
+Write a main(....)  method to test your code.
+
+
+
+--------------------------------------------------------------------------------------
+
+Chapter 7
+7.1. 
+a. Implement a generic class Pair<K,V> that stores pairs of (key, value) pairs.
+Usage example:
+	Pair<Integer,String> p = new Pair<>(1, "one");
+	System.out.println("The string value of " + p.k() + " is " + p.v());
+
+A pair object has a constructor 
+
+	public Pair(K k, V v) {...}
+
+has accessors:
+
+	public K k() {...}
+	public V v() {...}
+
+and overrides these methods inherited from class Object:
+	public boolean equals(Object obj) {...}
+	public int hashCode() {...}
+	public String toString() {...}
+	public Object clone() {...}
+
+Your class must be immutable, serializable, and cloneable. It is OK to return a shallow clone.
+Follow the guidelines from the textbook when implementing the above functions.
+
+b. Write a PairTest class with method main() where you test:
+- equality with equals()
+- cloning : make a clone and compare with the original
+- serialization. Serialize to an ObjectStream backed by a file and then load the object 
+  back to memory and compare it to the original with equals().
+- hashCode(). Must be compatible with equals (i.e. equal hashCode() for equal objects, and 
+  different values (with high probability) for different key or/and value objects
+
+
+
+====================================  EOF =======================================

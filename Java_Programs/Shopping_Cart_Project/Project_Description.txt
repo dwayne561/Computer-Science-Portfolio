@@ -1,0 +1,189 @@
+Project Description
+Application Topic
+Students will develop an application from scratch applying the OO development process studied in Chapter 2. Reusing a project from another course is not allowed.
+Students have two options for the application topic.
+
+Application Option #1: Shopping Cart
+Develop a shopping cart application (think of a simplified version of amazon.com). When the application begins, it shows a login window.
+Depending who logs in, a customer or the seller, the application performs different functions.
+
+Minimal Functional Specification:
+Here is a draft version of a minimal functional specification. Students have to adapt it, extend it, and make it their own:
+
+A customer logs in with a user name and password and a window (frame) opens where he can browse
+through a list of available products that includes the product name, price, and available quantity.
+From this window the customer can select products and add them to the shopping cart or they can click on a product and get the full
+product description, pricing and availability (quantity available) in a pop-up window. The
+customer can add the product to the shopping cart (quantity), depending on availability.
+The shopping cart total amount is kept current on the main product browse window.
+
+
+The customer can proceed to checkout at any time. On the checkout window, the shopping
+cart can be updated by changing the item count for each product in the cart. At checkout
+the customer verifies the shopping cart content and pays for the goods by
+supplying the credit card. The application does not arrange for shipping. 
+
+When the seller logs in, a window opens where the current state of the inventory is shown.
+The seller can update the inventory by adding products - specifying product name, invoice price,
+sell price and by updating the available quantity.
+
+The internal product representation includes ID, type, quantity, invoice price, and
+selling price. The application must keep track of all costs, revenues and profits.
+The seller can access this information from the application UI.
+
+
+
+FYI:
+Profit = Revenues - Costs,
+Revenues = Sum of sell price for all sold items
+Costs = Sum of invoice price for all items brought in the inventory (bought)
+
+Application Option #2: Custom
+Students can come up with their own idea for a project that has similar level of complexity with Option #1.
+The implementation must use Java and could be a:
+
+desktop application with Java Swing GUI (or equivalent)
+Android standalone application
+peer-to-peer or distributed application
+combination of the above
+Web applications written in Java are allowed only if they have an Android or Swing client side and a server side also written in Java, not JSP or some other web framework.
+
+Completing the project phases should be feasible within the time frame indicated below for milestones.
+
+ 
+
+Mandatory Project Requirements for all Options
+Use the Model-View-Controller architecture for handling the GUI and changes
+to the models (for option #1: shopping cart, inventory, costs/revenue/profit).
+Use at least FIVE different design patterns in an effective and non-trivial way.
+Highlight the patterns and describe the pattern roles for classes
+in the design documents (UML diagrams) and in the javadoc comments.
+Use programming by contract. Specify the contract with javadoc comments on methods.
+Write unit tests with JUnit and use them.
+Use javadoc comments and submit the generated html files in the project/javadocs directory.
+Specific requirements for Option #1 projects
+Abstract the credit card payment process. Assume all payments are successful.
+The application graphical user interface should use Swing classes or equivalent.
+The product/user databases must be persistent, meaning that when the user closes the application, then restarts it, the state of the product inventory must be restored. Use a text file, or
+Java Serialization (see Chapter 7) for storing the product and user database (seller and customer(s)).
+The initial state of the product and user databases are not specified, and could be
+pre-populated with objects.
+Teaming
+Students must work in teams of two or three (preferred) and can pick their partners. A Project Teaming discussion board forum is available to assist finding partners.
+
+
+Grading Rubric
+20% - Requirements Specification
+40% - Design Specification
+30% - Implementation - application code, unit tests
+10% - Demo. The application should work.
+
+The instructor will review early deliverables for items 1 and 2 and will return feedback.
+Students have to go back and use the comments to improve their requirements and
+the design for the next submission.
+
+
+Milestones and Deliverables
+0. Teaming and Topic
+Students should select by 09/13/2020 the team members and the project topic.
+One member of each group should use the Canvas Messaging tool to send a message to the instructor
+with their project topic and title. If a group picks Option #2 (custom project) then they should
+write a more detailed description of their project. Make sure to include what the program is doing,
+who the intended users are, what platform and OS are needed.
+
+Each group will be assigned a group ID, will get a group page on Canvas, and will use Canvas's Pages,
+Files, Discussions, and other tools for sharing files and for recording their progress.
+However, all project deliverables MUST use the group's Wiki tool (called Pages) on Canvas.
+Create a new page with a proper title (e.g. Delivery #1), describe the file, and upload the file using
+the Files tab on the right. Do not change the order of the pages created.
+
+1. Application Requirements
+Write all application functional specification in a PDF file.
+Write Use Cases (essential first, then detailed).
+Specific Use Cases for Option#1: the Shopping Cart
+Write at least the following use cases. Add more if necessary.
+User Logs In
+Customer Adds Items to Shopping Cart
+Customer Reviews Product Details
+Customer Reviews/Updates Shopping Cart
+Customer Checks Out
+Seller Reviews/Updates Inventory
+Seller Adds New Product
+Deadline on 09/30, 11:59PM via the Pages link on the group Canvas page.
+Upload just the PDF file.
+ 
+
+2. Design Specification
+Submit a pdf document on the Pages project page with the following:
+
+Updated Application Requirements. Incorporate the analysis comments (#1) from the instructor.
+CRC cards:
+identify classes for this application
+assign responsibilities
+find collaborators
+UML diagrams:
+class diagrams that show class attributes, methods and relationships
+sequence diagrams, for interactions between objects, according to use case scenarios. Identify the Use Case scenario for each sequence diagram.
+state diagrams for classes that have non-trivial behavior
+Deadline on 10/30, 11:59PM via the Pages on the group Canvas page.
+Upload just the PDF file.
+3. Implementation, Demo, Final Report
+Students must use the instructor's comments for Design (#2) to improve their architecture before starting the implementation.
+Remote / Distance Learning students will upload a video of their application demo on Youtube. Instructions will be posted later on the Project Canvas page.
+The project submission involves two files to upload on the group's Canvas Pages page:
+the project report document in PDF format. It is an updated version of the delivery #2 above that must include: requirements specification, design artifacts, and all the project code.
+a zip file with the source code, jar file, libraries, and all documentation:
+The final report PDF file, placed in the doc directory.
+Java code for application classes and any additional source files.
+Unit tests.
+Integration tests, if any.
+Runnable code packaged, ready to be deployed. That means a jar file for Java desktop applications, an apk file for Android apps, or equivalent.
+Javadoc files.
+Instructions on how to run the application in a readme.txt file.
+ 
+
+Final report and demo deadline:  12/09, 11:59PM.
+Upload the final report PDF file and the project zip file with the code and everything else on the project group Pages tool page.
+ 
+
+Detailed Instructions for the Final Delivery (#3)
+Create the following directory structure:
+
+project
+   \
+    docs
+   \
+    javadocs
+   \
+    bin   (or equivalent, as created by the IDE)
+   \
+    src    (or equivalent, as created by the IDE)
+        \
+        cop4331....   (package directories, named appropriately)
+Break down the Java code in several packages (cop4331.gui, cop4331.client, ...). Place the Java packages in
+the project/src directory (or equivalent).
+Put in project/docs all analysis and design PDF documents, and the final report: one PDF document that has the updated requirements, design, and all source code, with .java file names properly identified.
+The code pasted in this PDF file must be easily readable. Use font size 9 to 12. Don't use the Courier font because it's too wide.
+
+ 
+
+Check out this (Links to an external site.) page to find out how to format code in Word. It seems some IDEs can export (or copy/paste) in RTF format and Word takes that.  Also, check out hilite.me (Links to an external site.) for a simple way to add syntax highlighting. Understand that the instructor must find reading your diagrams and code interesting and refreshing. If readability becomes a problem, your grade may suffer.
+
+For all documents submitted identify each team member's contribution. For code, use Javadoc comment tag @author.
+
+For the final delivery zip the project base directory with the zip program
+(Winzip, explorer, or zip on Linux) and upload the file project.zip on the project Pages tool page.
+In addition, upload on the same page the PDF file with the final report.
+
+Only submissions in these approved formats will be graded. Other archive formats (e.g. arj, rar, DOC, RTF, HTML, etc.) will get you 0 points with no possibility of regrading.
+
+Make sure you describe in a project/readme.txt file instructions on how to build
+and run the application.
+
+If you use Eclipse, Netbeans, or BlueJ, you can copy-paste the source (src) directory in the project directory.
+Be sure it includes all source files.
+
+Some advice:
+Check out the Project Q & A file and the other advice files posted on the Project Canvas Module page.
+A good example for MVC and pattern use for a similar (but smaller) application is
+the invoice example from Chapter 5 in the textbook. See the notesLinks to an external site. and the codeLinks to an external site..
